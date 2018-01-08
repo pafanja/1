@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  
+</head>
+
+<body>
+	<input type="file" id="file"> 
+  <script>
+  if (!(window.File && window.FileReader && window.FileList && window.Blob)) 
+    	{
+    		alert("error");
+    	};
+    function handleFileSelect(evt)
+    {
+	    	var file = evt.target.files[0];
+	    	var reader = new FileReader();
+	    	var vowels = "уеіаояиюї";
+	    	var assocArr = {};
+	    	reader.readAsText(file);
+	    	reader.onload = function (e) {
+	       		var textToArray = reader.result.split("\n");
+	       			for (var i = 0; i <= textToArray.length-1;i++)
+	       			{
+	       				temporary = temp(textToArray[i]);
+	       					for (var j = 0; j <= temporary.length; j++)
+	       					{
+	       						//task 1
+	       						if (parseInt(temporary[j]) % 2 === 0)
+	       							alert("String " + (i+1) + " have a paried")
+	       						//task 2
+	       						if (~vowels.indexOf(temporary[j]))
+	       						{
+	       							alert ("Stirng " + (i+1) + " have a vowels");
+	       							break;
+	       						}	
+	       					}
+	       				//task 3
+	       				assocArr["string"+ (i+1)] = textToArray[i];
+	       			}
+	       			var keys = Object.keys(assocArr);
+	       			//task4
+	       			for (var h = 0; h < keys.length;h++)
+	       				{
+	       					temporary = temp2(keys[h]);
+	       					if (temporary % 2 === 0)
+	       						alert("Key "+(h+1)+" are parried");
+	       				}
+	       			//task5
+	       			for (var h = 0; h < keys.length;h++)
+	       				{
+	       					temporary = temp3(keys[h]);
+	       					for (var j = 0; j <= temporary.length; j++)
+	       						if (~vowels.search(temporary[j]))
+	       						{
+	       							alert ("Key " + (h+1) + " have a vowels");
+	       							break;
+	       						}
+	       				}
+	     	};
+    }
+    var temp = function(arr)
+    {
+    	var str = arr.split('');
+    	str.splice(0,2);
+    	return str;
+    }
+    var temp2 = function(arr)
+    {
+    	var str = arr.split('');
+    	str.splice(0,6);
+    	return str;
+    }
+    var temp3 = function(arr)
+    {
+    	var str = arr.split('');
+    	str.splice(6,1);
+    	return str;
+    }
+    window.onload = function()
+    {
+    	document.getElementById("file").addEventListener("change",handleFileSelect, false);
+    }
+  </script>
+</body>
+</html>
+
